@@ -1,0 +1,38 @@
+{
+  "name": "kkgerry/amazon-adv-laravel",
+  "type": "library",
+  "description": "Amazon Adv API Client Library",
+  "keywords": [
+    "amazon",
+    "advertising",
+    "client",
+    "library",
+    "laravel",
+  ],
+  "homepage": "https://advertising.amazon.com/",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Gerry",
+      "email": "26186440@qq.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "AmazonAdvApi\\": "AmazonAdvApi/"
+    }
+  },
+  "version": "1.1",
+  "require": {
+    "ext-curl": "*",
+    "ext-json": "*",
+    "ext-zlib": "*",
+    "php": ">=7.1"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/kubrey/amazon-advertising-api-php-sdk"
+    }
+  ]
+}
