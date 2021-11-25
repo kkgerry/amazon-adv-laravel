@@ -6,8 +6,7 @@
     "amazon",
     "advertising",
     "client",
-    "library",
-    "laravel"
+    "library"
   ],
   "homepage": "https://advertising.amazon.com/",
   "license": "Apache-2.0",

@@ -269,7 +269,7 @@ class Client
         $this->endpoint = trim($this->endpoint, "/");
         $url = "{$this->endpoint}/{$interface}";
         $this->requestId = null;
-        echo $url;die();
+        //echo $url; die();
         switch (strtolower($method)) {
             case "get":
                 if (!empty($params)) {
