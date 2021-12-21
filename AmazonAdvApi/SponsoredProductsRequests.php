@@ -56,7 +56,7 @@ trait SponsoredProductsRequests
      * @return array
      * @throws Exception
      */
-    public function createCampaigns(array $data)
+    public function createCampaigns($data=[])
     {
         $type = $this->campaignTypePrefix ?: 'sp';
         if ($this->apiVersion == 'v1') {
@@ -75,7 +75,7 @@ trait SponsoredProductsRequests
      * @return array
      * @throws Exception
      */
-    public function updateCampaigns(array $data)
+    public function updateCampaigns($data=[])
     {
         $type = $this->campaignTypePrefix ?: 'sp';
         if ($this->apiVersion == 'v1') {
@@ -199,20 +199,9 @@ trait SponsoredProductsRequests
      * @return array
      * @throws Exception
      */
-    public function createAdGroups(array $data)
+    public function createAdGroups($data=[])
     {
-        $type = $this->getCampaignTypeFromData($data);
-
-        if ($this->apiVersion == 'v1') {
-            $type = null;
-        } else {
-            $type = $type . "/";
-        }
-
-        if (!$type && $this->apiVersion == 'v2') {
-            $this->logAndThrow("Unable to perform request. No type is set");
-        }
-        return $this->operation($type . "adGroups", $data, "POST");
+        return $this->operation( "sp/adGroups", $data, "POST");
     }
 
     /**
@@ -220,23 +209,10 @@ trait SponsoredProductsRequests
      * @return array
      * @throws Exception
      */
-    public function updateAdGroups(array $data)
+    public function updateAdGroups($data=[])
     {
-        $type = $this->getCampaignTypeFromData($data);
-        if ($this->apiVersion == 'v1') {
-            $type = null;
-        } else {
-            if (isset($data['campaignType'])) {
-                unset($data['campaignType']);
-                $data = array_values($data);
-            }
-            $type = $type . "/";
-        }
 
-        if (!$type && $this->apiVersion == 'v2') {
-            $this->logAndThrow("Unable to perform request. No type is set");
-        }
-        return $this->operation($type . "adGroups", $data, "PUT");
+        return $this->operation("sp/adGroups", $data, "PUT");
     }
 
     /**
@@ -306,19 +282,9 @@ trait SponsoredProductsRequests
      * @return array
      * @throws Exception
      */
-    public function getBiddableKeyword($keywordId, ?array $data = null)
+    public function getBiddableKeyword($keywordId)
     {
-        $type = $this->campaignTypePrefix ?: 'sp';
-        if ($this->apiVersion == 'v1') {
-            $type = null;
-        } else {
-            $type = $type . "/";
-        }
-
-        if (!$type && $this->apiVersion == 'v2') {
-            $this->logAndThrow("Unable to perform request. No type is set");
-        }
-        return $this->operation($type . "keywords/{$keywordId}");
+        return $this->operation("sp/keywords/{$keywordId}");
     }
 
     /**
@@ -350,23 +316,9 @@ trait SponsoredProductsRequests
      * @return array
      * @throws Exception
      */
-    public function createBiddableKeywords($data)
+    public function createBiddableKeywords(array $data)
     {
-        $type = $this->campaignTypePrefix ?: 'sp';
-        if ($this->apiVersion == 'v1') {
-            $type = null;
-        } else {
-            if (isset($data['campaignType'])) {
-                unset($data['campaignType']);
-                $data = array_values($data);
-            }
-            $type = $type . "/";
-        }
-
-        if (!$type && $this->apiVersion == 'v2') {
-            $this->logAndThrow("Unable to perform request. No type is set");
-        }
-        return $this->operation($type . "keywords", $data, "POST");
+        return $this->operation( "sp/keywords", $data, "POST");
     }
 
     /**
@@ -376,21 +328,8 @@ trait SponsoredProductsRequests
      */
     public function updateBiddableKeywords(array $data)
     {
-        $type = $this->campaignTypePrefix ?: 'sp';
-        if ($this->apiVersion == 'v1') {
-            $type = null;
-        } else {
-            if (isset($data['campaignType'])) {
-                unset($data['campaignType']);
-                $data = array_values($data);
-            }
-            $type = $type . "/";
-        }
 
-        if (!$type && $this->apiVersion == 'v2') {
-            $this->logAndThrow("Unable to perform request. No type is set");
-        }
-        return $this->operation($type . "keywords", $data, "PUT");
+        return $this->operation( "sp/keywords", $data, "PUT");
     }
 
     /**
@@ -512,21 +451,7 @@ trait SponsoredProductsRequests
      */
     public function createNegativeKeywords(array $data)
     {
-        $type = $this->campaignTypePrefix ?: 'sp';
-        if ($this->apiVersion == 'v1') {
-            $type = null;
-        } else {
-            if (isset($data['campaignType'])) {
-                unset($data['campaignType']);
-                $data = array_values($data);
-            }
-            $type = $type . "/";
-        }
-
-        if (!$type && $this->apiVersion == 'v2') {
-            $this->logAndThrow("Unable to perform request. No type is set");
-        }
-        return $this->operation($type . "negativeKeywords", $data, "POST");
+        return $this->operation( "sp/negativeKeywords", $data, "POST");
     }
 
     /**
@@ -536,21 +461,7 @@ trait SponsoredProductsRequests
      */
     public function updateNegativeKeywords(array $data)
     {
-        $type = $this->campaignTypePrefix ?: 'sp';
-        if ($this->apiVersion == 'v1') {
-            $type = null;
-        } else {
-            if (isset($data['campaignType'])) {
-                unset($data['campaignType']);
-                $data = array_values($data);
-            }
-            $type = $type . "/";
-        }
-
-        if (!$type && $this->apiVersion == 'v2') {
-            $this->logAndThrow("Unable to perform request. No type is set");
-        }
-        return $this->operation($type . "negativeKeywords", $data, "PUT");
+        return $this->operation( "sp/negativeKeywords", $data, "PUT");
     }
 
     /**
@@ -672,21 +583,8 @@ trait SponsoredProductsRequests
      */
     public function createCampaignNegativeKeywords(array $data)
     {
-        $type = $this->campaignTypePrefix ?: 'sp';
-        if ($this->apiVersion == 'v1') {
-            $type = null;
-        } else {
-            if (isset($data['campaignType'])) {
-                unset($data['campaignType']);
-                $data = array_values($data);
-            }
-            $type = $type . "/";
-        }
 
-        if (!$type && $this->apiVersion == 'v2') {
-            $this->logAndThrow("Unable to perform request. No type is set");
-        }
-        return $this->operation($type . "campaignNegativeKeywords", $data, "POST");
+        return $this->operation( "sp/campaignNegativeKeywords", $data, "POST");
     }
 
     /**
@@ -696,21 +594,7 @@ trait SponsoredProductsRequests
      */
     public function updateCampaignNegativeKeywords(array $data)
     {
-        $type = $this->campaignTypePrefix ?: 'sp';
-        if ($this->apiVersion == 'v1') {
-            $type = null;
-        } else {
-            if (isset($data['campaignType'])) {
-                unset($data['campaignType']);
-                $data = array_values($data);
-            }
-            $type = $type . "/";
-        }
-
-        if (!$type && $this->apiVersion == 'v2') {
-            $this->logAndThrow("Unable to perform request. No type is set");
-        }
-        return $this->operation($type . "campaignNegativeKeywords", $data, "PUT");
+        return $this->operation( "sp/campaignNegativeKeywords", $data, "PUT");
     }
 
     /**
@@ -744,17 +628,7 @@ trait SponsoredProductsRequests
      */
     public function listCampaignNegativeKeywords(?array $data = null)
     {
-        $type = $this->campaignTypePrefix ?: 'sp';
-        if ($this->apiVersion == 'v1') {
-            $type = null;
-        } else {
-            $type = $type . "/";
-        }
-
-        if (!$type && $this->apiVersion == 'v2') {
-            $this->logAndThrow("Unable to perform request. No type is set");
-        }
-        return $this->operation($type . "campaignNegativeKeywords", $data);
+        return $this->operation("sp/campaignNegativeKeywords", $data);
     }
 
     /**
@@ -832,21 +706,7 @@ trait SponsoredProductsRequests
      */
     public function createProductAds(array $data)
     {
-        $type = $this->getCampaignTypeFromData($data);
-        if ($this->apiVersion == 'v1') {
-            $type = null;
-        } else {
-            if (isset($data['campaignType'])) {
-                unset($data['campaignType']);
-                $data = array_values($data);
-            }
-            $type = $type . "/";
-        }
-
-        if (!$type && $this->apiVersion == 'v2') {
-            $this->logAndThrow("Unable to perform request. No type is set");
-        }
-        return $this->operation($type . "productAds", $data, "POST");
+        return $this->operation( "sp/productAds", $data, "POST");
     }
 
     /**
@@ -856,21 +716,7 @@ trait SponsoredProductsRequests
      */
     public function updateProductAds(array $data)
     {
-        $type = $this->getCampaignTypeFromData($data);
-        if ($this->apiVersion == 'v1') {
-            $type = null;
-        } else {
-            if (isset($data['campaignType'])) {
-                unset($data['campaignType']);
-                $data = array_values($data);
-            }
-            $type = $type . "/";
-        }
-
-        if (!$type && $this->apiVersion == 'v2') {
-            $this->logAndThrow("Unable to perform request. No type is set");
-        }
-        return $this->operation($type . "productAds", $data, "PUT");
+        return $this->operation( "sp/productAds", $data, "PUT");
     }
 
     /**
@@ -944,7 +790,8 @@ trait SponsoredProductsRequests
      */
     public function getAdGroupBidRecommendations($adGroupId)
     {
-        return $this->operation("adGroups/{$adGroupId}/bidRecommendations");
+        $params['_headers']['adGroupId'] = $adGroupId;
+        return $this->operation("sp/adGroups/{$adGroupId}/bidRecommendations");
     }
 
     /**
@@ -963,13 +810,20 @@ trait SponsoredProductsRequests
      * @return array
      * @throws Exception
      */
-    public function bulkGetKeywordBidRecommendations($adGroupId, $data)
+    public function bulkGetKeywordBidRecommendations(array $data)
     {
-        $data = array(
-            "adGroupId" => $adGroupId,
-            "keywords" => $data
-        );
         return $this->operation("keywords/bidRecommendations", $data, "POST");
+    }
+
+    /**
+     * @param $adGroupId
+     * @param $data
+     * @return array
+     * @throws Exception
+     */
+    public function bulkGetTargetingBidRecommendations(array $data)
+    {
+        return $this->operation("sp/targets/bidRecommendations", $data, "POST");
     }
 
     /**
@@ -1203,6 +1057,8 @@ trait SponsoredProductsRequests
      */
     public function generateTargetsProductRecommendations(array $data): array
     {
+        $this->setEndpoints();
+        //$data['_headers']['content_type'] = 'Content-Type: application/vnd.spproducttargeting.v3+json';
         return $this->operation("sp/targets/productRecommendations", $data, 'POST');
     }
 
@@ -1309,6 +1165,12 @@ trait SponsoredProductsRequests
     public function getTargetingCategories(array $data): array
     {
         return $this->operation("sp/targets/categories", $data);
+    }
+    public function getTargetingRecommendCategories(array $data): array
+    {
+        $this->setEndpoints('v3');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.spproducttargeting.v3+json';
+        return $this->operation("sp/targets/categories/recommendations", $data,'POST');
     }
 
     /**

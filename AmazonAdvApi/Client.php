@@ -250,20 +250,27 @@ class Client
      * @return array
      * @throws Exception
      */
-    private function operation(string $interface, ?array $params = [], string $method = "GET")
+    private function operation(string $interface, $params = null, string $method = "GET")
     {
         $headers = array(
-            "Authorization: bearer {$this->config["accessToken"]}",
-            "Content-Type: application/json",
-            "User-Agent: {$this->userAgent}",
-            "Amazon-Advertising-API-ClientId: {$this->config["clientId"]}"
+            'authorization' => "Authorization: bearer {$this->config["accessToken"]}",
+            'content_type' => "Content-Type: application/json",
+            'user_agent' => "User-Agent: {$this->userAgent}",
+            'amazon_adv_api_client_id' => "Amazon-Advertising-API-ClientId: {$this->config["clientId"]}"
         );
 
-        if (!is_null($this->profileId)) {
-            array_push($headers, "Amazon-Advertising-API-Scope: {$this->profileId}");
+        if(isset($params['_headers'])){
+            $headers = array_merge($headers,$params['_headers']);
+            unset($params['_headers']);
         }
 
-        $this->headers = $headers;
+        if (!is_null($this->profileId)) {
+            $headers['amazon_adv_api_scope'] = "Amazon-Advertising-API-Scope: {$this->profileId}";
+            //array_push($headers, "Amazon-Advertising-API-Scope: {$this->profileId}");
+        }
+        //print_r($headers);die();
+        $this->headers = array_values($headers);
+
 
         $request = new CurlRequest();
         $this->endpoint = trim($this->endpoint, "/");
@@ -284,7 +291,11 @@ class Client
             case "post":
             case "delete":
                 if (!empty($params)) {
-                    $data = json_encode($params);
+                    if(is_array($params)) {
+                        $data = json_encode($params);
+                    }else{
+                        $data = $params;
+                    }
                     $request->setOption(CURLOPT_POST, true);
                     $request->setOption(CURLOPT_POSTFIELDS, $data);
                 }
@@ -299,7 +310,6 @@ class Client
         $request->setOption(CURLOPT_CUSTOMREQUEST, strtoupper($method));
         return $this->executeRequest($request);
     }
-
     /**
      * @param string $interface
      * @param array|null $params
@@ -475,17 +485,25 @@ class Client
      * @return bool
      * @throws Exception
      */
-    private function setEndpoints()
+    private function setEndpoints($t='')
     {
         /* check if region exists and set api/token endpoints */
         if (array_key_exists(strtolower($this->config["region"]), $this->endpoints)) {
             $region_code = strtolower($this->config["region"]);
             if ($this->config["sandbox"]) {
-                $this->endpoint = "https://{$this->endpoints[$region_code]["sandbox"]}/{$this->apiVersion}";
-                $this->commonUrl = "https://{$this->endpoints[$region_code]["sandbox"]}";
+                if($t == 'v3'){
+                    $this->endpoint = "https://{$this->endpoints[$region_code]["sandbox"]}/";
+                }else {
+                    $this->endpoint = "https://{$this->endpoints[$region_code]["sandbox"]}/{$this->apiVersion}";
+                    $this->commonUrl = "https://{$this->endpoints[$region_code]["sandbox"]}";
+                }
             } else {
-                $this->endpoint = "https://{$this->endpoints[$region_code]["prod"]}/{$this->apiVersion}";
-                $this->commonUrl = "https://{$this->endpoints[$region_code]["prod"]}";
+                if($t == 'v3'){
+                    $this->endpoint = "https://{$this->endpoints[$region_code]["prod"]}/";
+                }else {
+                    $this->endpoint = "https://{$this->endpoints[$region_code]["prod"]}/{$this->apiVersion}";
+                    $this->commonUrl = "https://{$this->endpoints[$region_code]["prod"]}";
+                }
             }
 
             $this->tokenUrl = $this->endpoints[$region_code]["tokenUrl"];
@@ -494,6 +512,7 @@ class Client
         }
         return true;
     }
+
 
     /**
      * @param $message
