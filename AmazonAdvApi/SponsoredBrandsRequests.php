@@ -20,6 +20,7 @@ trait SponsoredBrandsRequests
      */
     public function listSponsoredBrandAdGroups($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/adGroups", $data);
     }
 
@@ -30,8 +31,9 @@ trait SponsoredBrandsRequests
      * @return array
      * @throws Exception
      */
-    public function getSponsoredBrandAdGroup(int $adGroupId): array
+    public function getSponsoredBrandAdGroup($adGroupId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/adGroups/{$adGroupId}");
     }
 
@@ -44,6 +46,7 @@ trait SponsoredBrandsRequests
      */
     public function listSponsoredBrandKeywords($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/keywords", $data);
     }
 
@@ -56,6 +59,7 @@ trait SponsoredBrandsRequests
      */
     public function updateSponsoredBrandKeywords(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/keywords", $data, "PUT");
     }
 
@@ -68,6 +72,7 @@ trait SponsoredBrandsRequests
      */
     public function createSponsoredBrandKeywords(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/keywords", $data, "POST");
     }
 
@@ -78,8 +83,9 @@ trait SponsoredBrandsRequests
      * @return array
      * @throws Exception
      */
-    public function getSponsoredBrandKeyword(int $keywordId): array
+    public function getSponsoredBrandKeyword($keywordId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/keywords/{$keywordId}");
     }
 
@@ -90,8 +96,9 @@ trait SponsoredBrandsRequests
      * @return array
      * @throws Exception
      */
-    public function archiveSponsoredBrandKeyword(int $keywordId): array
+    public function archiveSponsoredBrandKeyword($keywordId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/keywords/{$keywordId}", "DELETE");
     }
 
@@ -104,6 +111,7 @@ trait SponsoredBrandsRequests
      */
     public function listSponsoredBrandNegativeKeywords($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/negativeKeywords", $data);
     }
 
@@ -116,6 +124,7 @@ trait SponsoredBrandsRequests
      */
     public function createSponsoredBrandNegativeKeywords(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/negativeKeywords", $data, "POST");
     }
 
@@ -128,6 +137,7 @@ trait SponsoredBrandsRequests
      */
     public function updateSponsoredBrandNegativeKeywords(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/negativeKeywords", $data, "PUT");
     }
 
@@ -138,8 +148,9 @@ trait SponsoredBrandsRequests
      * @return array
      * @throws Exception
      */
-    public function getSponsoredBrandNegativeKeyword(int $keywordId): array
+    public function getSponsoredBrandNegativeKeyword($keywordId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/negativeKeywords/{$keywordId}");
     }
 
@@ -150,8 +161,9 @@ trait SponsoredBrandsRequests
      * @return array
      * @throws Exception
      */
-    public function archiveSponsoredBrandNegativeKeyword(int $keywordId): array
+    public function archiveSponsoredBrandNegativeKeyword($keywordId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/negativeKeywords/{$keywordId}", "DELETE");
     }
 
@@ -165,6 +177,7 @@ trait SponsoredBrandsRequests
      */
     public function listSponsoredBrandTargets(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/targets/list", $data, "POST");
     }
 
@@ -177,6 +190,7 @@ trait SponsoredBrandsRequests
      */
     public function updateSponsoredBrandTargets(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/targets", $data, "PUT");
     }
 
@@ -189,6 +203,7 @@ trait SponsoredBrandsRequests
      */
     public function createSponsoredBrandTargets(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/targets", $data, "POST");
     }
 
@@ -199,8 +214,9 @@ trait SponsoredBrandsRequests
      * @return array
      * @throws Exception
      */
-    public function getSponsoredBrandTarget(int $targetId): array
+    public function getSponsoredBrandTarget($targetId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/targets/{$targetId}");
     }
 
@@ -212,8 +228,9 @@ trait SponsoredBrandsRequests
      * @return array
      * @throws Exception
      */
-    public function archiveSponsoredBrandTarget(int $targetId): array
+    public function archiveSponsoredBrandTarget($targetId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/targets/{$targetId}", "DELETE");
     }
 
@@ -226,6 +243,7 @@ trait SponsoredBrandsRequests
      */
     public function batchGetSponsoredBrandTargets(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/targets/batchGet", $data, "POST");
     }
 
@@ -239,6 +257,7 @@ trait SponsoredBrandsRequests
      */
     public function listSponsoredBrandNegativeTargets(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/negativeTargets/list", $data, "POST");
     }
 
@@ -251,6 +270,7 @@ trait SponsoredBrandsRequests
      */
     public function updateSponsoredBrandNegativeTargets(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/negativeTargets", $data, "PUT");
     }
 
@@ -263,6 +283,7 @@ trait SponsoredBrandsRequests
      */
     public function createSponsoredBrandNegativeTargets(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/negativeTargets", $data, "POST");
     }
 
@@ -273,8 +294,9 @@ trait SponsoredBrandsRequests
      * @return array
      * @throws Exception
      */
-    public function getSponsoredBrandNegativeTarget(int $negativeTargetId): array
+    public function getSponsoredBrandNegativeTarget($negativeTargetId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/negativeTargets/{$negativeTargetId}");
     }
 
@@ -286,8 +308,9 @@ trait SponsoredBrandsRequests
      * @return array
      * @throws Exception
      */
-    public function archiveSponsoredBrandNegativeTarget(int $negativeTargetId): array
+    public function archiveSponsoredBrandNegativeTarget($negativeTargetId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/negativeTargets/{$negativeTargetId}", "DELETE");
     }
 
@@ -300,6 +323,7 @@ trait SponsoredBrandsRequests
      */
     public function batchGetSponsoredBrandNegativeTargets(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/negativeTargets/batchGet", $data, "POST");
     }
 
@@ -312,6 +336,7 @@ trait SponsoredBrandsRequests
      */
     public function listSponsoredBrandTargetsProductRecommendations(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/recommendations/targets/product/list", $data, "POST");
     }
 
@@ -324,6 +349,7 @@ trait SponsoredBrandsRequests
      */
     public function listSponsoredBrandTargetsCategoryRecommendations(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/recommendations/targets/category", $data, "POST");
     }
 
@@ -336,6 +362,7 @@ trait SponsoredBrandsRequests
      */
     public function listSponsoredBrandTargetsBrandRecommendations(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/recommendations/targets/brand", $data, "POST");
     }
 
@@ -347,6 +374,7 @@ trait SponsoredBrandsRequests
      */
     public function getSponsoredBrandBidRecommendations(array $data)
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/recommendations/bids", $data, 'POST');
     }
 
@@ -358,6 +386,7 @@ trait SponsoredBrandsRequests
      */
     public function listSponsoredBrandDraftCampaigns(): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/drafts/campaigns");
     }
 
@@ -370,6 +399,7 @@ trait SponsoredBrandsRequests
      */
     public function createSponsoredBrandDraftCampaigns(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/drafts/campaigns", $data, "POST");
     }
 
@@ -382,6 +412,7 @@ trait SponsoredBrandsRequests
      */
     public function updateSponsoredBrandDraftCampaigns(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/drafts/campaigns", $data, "PUT");
     }
 
@@ -392,7 +423,7 @@ trait SponsoredBrandsRequests
      * @return array
      * @throws Exception
      */
-    public function getSponsoredBrandDraftCampaigns(int $draftCampaignId): array
+    public function getSponsoredBrandDraftCampaigns($draftCampaignId): array
     {
         return $this->operation("sb/drafts/campaigns/{$draftCampaignId}");
     }
@@ -404,8 +435,9 @@ trait SponsoredBrandsRequests
      * @return array
      * @throws Exception
      */
-    public function archiveSponsoredBrandDraftCampaigns(int $draftCampaignId): array
+    public function archiveSponsoredBrandDraftCampaigns($draftCampaignId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/drafts/campaigns/{$draftCampaignId}", "DELETE");
     }
 
@@ -418,6 +450,7 @@ trait SponsoredBrandsRequests
      */
     public function submitSponsoredBrandDraftCampaigns(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/drafts/campaigns/submit", $data,"POST");
     }
 
@@ -428,8 +461,9 @@ trait SponsoredBrandsRequests
      * @return array
      * @throws Exception
      */
-    public function moderationSponsoredBrandCampaign(int $campaignId): array
+    public function moderationSponsoredBrandCampaign($campaignId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/moderation/campaigns/{$campaignId}");
     }
 
@@ -442,6 +476,7 @@ trait SponsoredBrandsRequests
      */
     public function getBrands($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("brands", $data);
     }
 
@@ -454,6 +489,7 @@ trait SponsoredBrandsRequests
      */
     public function getStoreAssets($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("/stores/assets", $data);
     }
 
@@ -469,6 +505,7 @@ trait SponsoredBrandsRequests
         if (!isset($data['pageUrl'])) {
             throw new Exception("pageUrl should be set as GET param");
         }
+        $this->setEndpoints('v3');
         return $this->operation("pageAsins", $data);
     }
 
@@ -480,6 +517,7 @@ trait SponsoredBrandsRequests
      */
     public function listSponsoredBrandCampaigns($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/campaigns", $data);
     }
 
@@ -491,6 +529,7 @@ trait SponsoredBrandsRequests
      */
     public function createSponsoredBrandCampaigns(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/campaigns", $data, 'POST');
     }
 
@@ -502,6 +541,7 @@ trait SponsoredBrandsRequests
      */
     public function updateSponsoredBrandCampaigns(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/campaigns", $data, 'PUT');
     }
 
@@ -512,8 +552,9 @@ trait SponsoredBrandsRequests
      * @return array
      * @throws Exception
      */
-    public function getSponsoredBrandCampaign(int $campaignId): array
+    public function getSponsoredBrandCampaign($campaignId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/campaigns/{$campaignId}");
     }
 
@@ -523,8 +564,9 @@ trait SponsoredBrandsRequests
      * @return array
      * @throws Exception
      */
-    public function archiveSponsoredBrandCampaign(int $campaignId): array
+    public function archiveSponsoredBrandCampaign($campaignId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sb/campaigns/{$campaignId}", null, 'DELETE');
     }
 }

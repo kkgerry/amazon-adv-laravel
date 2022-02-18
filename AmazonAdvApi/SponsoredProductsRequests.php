@@ -902,6 +902,9 @@ trait SponsoredProductsRequests
      */
     public function requestSnapshot($recordType,$adClass='sp', ?array $data = null)
     {
+        if($adClass == 'sd'){
+            $this->setEndpoints('v3');
+        }
         return $this->operation("{$adClass}/{$recordType}/snapshot", $data, "POST");
     }
 
@@ -912,6 +915,9 @@ trait SponsoredProductsRequests
      */
     public function getSnapshot($snapshotId,$adClass='sp')
     {
+        if($adClass == 'sd'){
+            $this->setEndpoints('v3');
+        }
         $req = $this->operation("{$adClass}/snapshots/{$snapshotId}");
         if ($req["success"]) {
             $json = json_decode($req["response"], true);
