@@ -20,6 +20,7 @@ trait SponsoredDisplayRequests
      */
     public function listSponsoredDisplayCampaigns($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/campaigns", $data);
     }
 
@@ -32,6 +33,7 @@ trait SponsoredDisplayRequests
      */
     public function updateSponsoredDisplayCampaigns(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/campaigns", $data, "PUT");
     }
 
@@ -44,6 +46,7 @@ trait SponsoredDisplayRequests
      */
     public function createSponsoredDisplayCampaigns(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/campaigns", $data, "POST");
     }
 
@@ -56,6 +59,7 @@ trait SponsoredDisplayRequests
      */
     public function getSponsoredDisplayCampaigns(int $campaignId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/campaigns/{$campaignId}");
     }
 
@@ -68,6 +72,7 @@ trait SponsoredDisplayRequests
      */
     public function archiveSponsoredDisplayCampaigns(int $campaignId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/campaigns/{$campaignId}", "DELETE");
     }
 
@@ -80,6 +85,7 @@ trait SponsoredDisplayRequests
      */
     public function listSponsoredDisplayCampaignsEx($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/campaigns/extended", $data);
     }
 
@@ -92,6 +98,7 @@ trait SponsoredDisplayRequests
      */
     public function getSponsoredDisplayCampaignsEx(int $campaignId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/campaigns/extended/{$campaignId}");
     }
 
@@ -104,6 +111,7 @@ trait SponsoredDisplayRequests
      */
     public function listSponsoredDisplayAdGroups($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/adGroups", $data);
     }
 
@@ -116,6 +124,7 @@ trait SponsoredDisplayRequests
      */
     public function updateSponsoredDisplayAdGroups(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/adGroups", $data, "PUT");
     }
 
@@ -128,6 +137,7 @@ trait SponsoredDisplayRequests
      */
     public function createSponsoredDisplayAdGroups(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/adGroups", $data, "POST");
     }
 
@@ -140,6 +150,7 @@ trait SponsoredDisplayRequests
      */
     public function getSponsoredDisplayAdGroup(int $adGroupId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/adGroups/{$adGroupId}");
     }
 
@@ -152,6 +163,7 @@ trait SponsoredDisplayRequests
      */
     public function archiveSponsoredDisplayAdGroupId(int $adGroupId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/adGroups/{$adGroupId}", "DELETE");
     }
 
@@ -164,6 +176,7 @@ trait SponsoredDisplayRequests
      */
     public function listSponsoredDisplayAdGroupsEx($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/adGroups/extended", $data);
     }
 
@@ -176,6 +189,7 @@ trait SponsoredDisplayRequests
      */
     public function getSponsoredDisplayAdGroupsEx(int $adGroupId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/adGroups/extended/{$adGroupId}");
     }
 
@@ -188,6 +202,7 @@ trait SponsoredDisplayRequests
      */
     public function listSponsoredDisplayProductAds($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/productAds", $data);
     }
 
@@ -200,6 +215,7 @@ trait SponsoredDisplayRequests
      */
     public function updateSponsoredDisplayProductAds(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/productAds", $data, "PUT");
     }
 
@@ -212,6 +228,7 @@ trait SponsoredDisplayRequests
      */
     public function createSponsoredDisplayProductAds(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/productAds", $data, "POST");
     }
 
@@ -224,6 +241,7 @@ trait SponsoredDisplayRequests
      */
     public function getSponsoredDisplayProductAds(int $adId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/productAds/{$adId}");
     }
 
@@ -236,6 +254,7 @@ trait SponsoredDisplayRequests
      */
     public function archiveSponsoredDisplayProductAds(int $adId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/productAds/{$adId}", "DELETE");
     }
 
@@ -248,6 +267,7 @@ trait SponsoredDisplayRequests
      */
     public function listSponsoredDisplayProductAdsEx($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/productAds/extended", $data);
     }
 
@@ -260,6 +280,7 @@ trait SponsoredDisplayRequests
      */
     public function getSponsoredDisplayProductAdsEx(int $adId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/productAds/extended/{$adId}");
     }
 
@@ -272,6 +293,7 @@ trait SponsoredDisplayRequests
      */
     public function listSponsoredDisplayTargets($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/targets", $data);
     }
 
@@ -284,6 +306,7 @@ trait SponsoredDisplayRequests
      */
     public function updateSponsoredDisplayTargets(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/targets", $data, "PUT");
     }
 
@@ -296,6 +319,7 @@ trait SponsoredDisplayRequests
      */
     public function createSponsoredDisplayTargets(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/targets", $data, "POST");
     }
 
@@ -308,6 +332,7 @@ trait SponsoredDisplayRequests
      */
     public function getSponsoredDisplayTargets(int $targetId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/targets/{$targetId}");
     }
 
@@ -320,6 +345,7 @@ trait SponsoredDisplayRequests
      */
     public function archiveSponsoredDisplayTargets(int $targetId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/targets/{$targetId}", "DELETE");
     }
 
@@ -332,6 +358,7 @@ trait SponsoredDisplayRequests
      */
     public function listSponsoredDisplayTargetsEx($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/targets/extended", $data);
     }
 
@@ -344,6 +371,7 @@ trait SponsoredDisplayRequests
      */
     public function getSponsoredDisplayTargetsEx(int $targetId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/targets/extended/{$targetId}");
     }
 
@@ -356,6 +384,7 @@ trait SponsoredDisplayRequests
      */
     public function listSponsoredDisplayNegativeTargets($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/negativeTargets", $data);
     }
 
@@ -368,6 +397,7 @@ trait SponsoredDisplayRequests
      */
     public function updateSponsoredDisplayNegativeTargets(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/negativeTargets", $data, "PUT");
     }
 
@@ -380,6 +410,7 @@ trait SponsoredDisplayRequests
      */
     public function createSponsoredDisplayNegativeTargets(array $data): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/negativeTargets", $data, "POST");
     }
 
@@ -392,6 +423,7 @@ trait SponsoredDisplayRequests
      */
     public function getSponsoredDisplayNegativeTargets(int $negativeTargetId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/negativeTargets/{$negativeTargetId}");
     }
 
@@ -404,6 +436,7 @@ trait SponsoredDisplayRequests
      */
     public function archiveSponsoredDisplayNegativeTargets(int $negativeTargetId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/negativeTargets/{$negativeTargetId}", "DELETE");
     }
 
@@ -416,6 +449,7 @@ trait SponsoredDisplayRequests
      */
     public function listSponsoredDisplayNegativeTargetsEx($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/negativeTargets/extended", $data);
     }
 
@@ -428,6 +462,7 @@ trait SponsoredDisplayRequests
      */
     public function getSponsoredDisplayNegativeTargetsEx(int $negativeTargetId): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/negativeTargets/extended/{$negativeTargetId}");
     }
 
@@ -441,6 +476,7 @@ trait SponsoredDisplayRequests
      */
     public function listSponsoredDisplaySuggestedProducts($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("sd/suggestedProducts", $data);
     }
 
@@ -453,6 +489,7 @@ trait SponsoredDisplayRequests
      */
     public function getSponsoredDisplayProductReadinessStatus($data = null): array
     {
+        $this->setEndpoints('v3');
         return $this->operation("/sd/suggestedProducts/productReadinessStatus", $data, "POST");
     }
 }

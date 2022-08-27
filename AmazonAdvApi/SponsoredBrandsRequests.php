@@ -490,9 +490,21 @@ trait SponsoredBrandsRequests
     public function getStoreAssets($data = null): array
     {
         $this->setEndpoints('v3');
-        return $this->operation("/stores/assets", $data);
+        return $this->operation("stores/assets", $data);
     }
+    /**
+     * GET /stores/assets
+     * @see https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#/Stores/listAssets
+     * @param array|null $data
+     * @return array
+     * @throws Exception
+     */
+    public function createStoreAssets($data = null): array
+    {
+        $this->setEndpoints('v3');
 
+        return $this->operation("stores/assets", $data,'POST');
+    }
     /**
      * GET /pageAsins
      * @see https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#/Landing%20page%20asins/listAsins
@@ -542,6 +554,7 @@ trait SponsoredBrandsRequests
     public function updateSponsoredBrandCampaigns(array $data): array
     {
         $this->setEndpoints('v3');
+        //$data['_headers']['content_type'] = 'Content-Type: application/vnd.sbupdatecampaignresponse.v3+json';
         return $this->operation("sb/campaigns", $data, 'PUT');
     }
 
@@ -569,4 +582,17 @@ trait SponsoredBrandsRequests
         $this->setEndpoints('v3');
         return $this->operation("sb/campaigns/{$campaignId}", null, 'DELETE');
     }
+
+    /**
+     * get media upload resource
+     * @see https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#/Media/createUploadResource
+     * @return array
+     * @throws Exception
+     */
+    public function getMediaUPloadResource(array $data): array
+    {
+        $this->setEndpoints('v3');
+        return $this->operation("media/upload", $data, 'POST');
+    }
+
 }

@@ -23,6 +23,7 @@ class CurlRequest
         curl_setopt($this->handle, CURLOPT_SSL_VERIFYPEER, true);
         curl_setopt($this->handle, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($this->handle, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($this->handle, CURLOPT_TIMEOUT,120); //120秒后超时
         curl_setopt($this->handle, CURLOPT_HEADER, false);
         if (defined("CURLOPT_IPRESOLVE")) {
             curl_setopt($this->handle, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);

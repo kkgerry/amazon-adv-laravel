@@ -89,7 +89,7 @@ class Client
 
         $this->validateConfig($config);
         $this->validateConfigParameters();
-        $this->setEndpoints();
+        $this->setEndpoints($this->apiVersion);
 
         if (is_null($this->config["accessToken"]) && !is_null($this->config["refreshToken"])) {
             /* convenience */
@@ -171,6 +171,10 @@ class Client
 
         if (!is_null($this->profileId)) {
             array_push($headers, "Amazon-Advertising-API-Scope: {$this->profileId}");
+
+            if(stripos($location,'sd/snapshots')) {
+                array_push($headers, "Amazon-Advertising-API-ClientId: {$this->config["clientId"]}");
+            }
         }
 
         $request = new CurlRequest();
@@ -268,7 +272,7 @@ class Client
             $headers['amazon_adv_api_scope'] = "Amazon-Advertising-API-Scope: {$this->profileId}";
             //array_push($headers, "Amazon-Advertising-API-Scope: {$this->profileId}");
         }
-        //print_r($headers);die();
+        //print_r(array_values($headers));//die();
         $this->headers = array_values($headers);
 
 
@@ -291,15 +295,22 @@ class Client
             case "post":
             case "delete":
                 if (!empty($params)) {
-                    if(is_array($params)) {
-                        $data = json_encode($params);
+                    if(!isset($params['multipart_form_data'])) {
+                        if (is_array($params)) {
+                            $data = json_encode($params);
+                        } else {
+                            $data = $params;
+                        }
                     }else{
+                        unset($params['multipart_form_data']);
                         $data = $params;
                     }
+                    //print_r($data);die();
                     $request->setOption(CURLOPT_POST, true);
                     $request->setOption(CURLOPT_POSTFIELDS, $data);
                 }
                 break;
+
             default:
                 $this->logAndThrow("Unknown verb {$method}.");
         }
@@ -308,6 +319,7 @@ class Client
         $request->setOption(CURLOPT_HTTPHEADER, $headers);
         $request->setOption(CURLOPT_USERAGENT, $this->userAgent);
         $request->setOption(CURLOPT_CUSTOMREQUEST, strtoupper($method));
+        $this->logSave('广告API对接',[$url,$params]);
         return $this->executeRequest($request);
     }
     /**
@@ -337,7 +349,7 @@ class Client
 
         $url = "{$this->commonUrl}/{$interface}";
         $this->requestId = null;
-        
+
         switch (strtolower($method)) {
             case "get":
                 if (!empty($params)) {
@@ -365,6 +377,7 @@ class Client
         $request->setOption(CURLOPT_HTTPHEADER, $headers);
         $request->setOption(CURLOPT_USERAGENT, $this->userAgent);
         $request->setOption(CURLOPT_CUSTOMREQUEST, strtoupper($method));
+        $this->logSave('广告公共API对接',[$url,$params]);
         return $this->executeRequest($request);
     }
 
@@ -374,7 +387,9 @@ class Client
      */
     protected function executeRequest(CurlRequest $request)
     {
+        $this->logSave('AmzAdv Request Start');
         $response = $request->execute();
+        $this->logSave('AmzAdv Request End');
         $this->requestId = $request->requestId;
         $response_info = $request->getInfo();
         $request->close();
@@ -522,7 +537,6 @@ class Client
     {
         throw new Exception($message);
     }
-
     /**
      * @param array|null $data
      * @return string
@@ -530,11 +544,12 @@ class Client
     protected function getCampaignTypeFromData(?array $data): string
     {
         if (empty($data)) {
-            return static::CAMPAIGN_TYPE_SPONSORED_PRODUCTS;
+            $campaignType = static::CAMPAIGN_TYPE_SPONSORED_PRODUCTS;
+        }else {
+            $campaignType = is_array($data) && isset($data['campaignType'])
+                ? $data['campaignType']
+                : static::CAMPAIGN_TYPE_SPONSORED_PRODUCTS;
         }
-        $campaignType = is_array($data) && isset($data['campaignType'])
-            ? $data['campaignType']
-            : static::CAMPAIGN_TYPE_SPONSORED_PRODUCTS;
         if ($campaignType === static::CAMPAIGN_TYPE_SPONSORED_PRODUCTS) {
             return 'sp';
         } elseif ($campaignType === static::CAMPAIGN_TYPE_SPONSORED_BRANDS) {
@@ -544,5 +559,29 @@ class Client
         } else {
             return 'sp';
         }
+    }
+
+    public function logSave($title = '', $data = [])
+    {
+        if (!empty($title) || !empty($data)) {
+            $type = 'amazon_adv/';
+            $arrType = explode('/', $type);
+
+            if (count($arrType) > 1) {
+                unset($arrType[count($arrType) - 1]);
+                $path = storage_path('logs') . '/' . implode('/', $arrType);
+                if (!is_dir($path)) {
+                    //第三个参数是“true”表示能创建多级目录，iconv防止中文目录乱码
+                    @mkdir($path, 0777, true);
+                }
+            }
+
+            $path = storage_path('logs') . '/' . $type . '-' . date("Y-m-d") . '.log';
+            $content = date('Y-m-d H:i:s') . ' ';
+            $content .= $title ?? '';
+            $content .= ': ' . json_encode($data,JSON_UNESCAPED_UNICODE) . "\r\n";
+            file_put_contents($path, $content, FILE_APPEND);
+        }
+
     }
 }

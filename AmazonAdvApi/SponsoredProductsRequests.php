@@ -696,7 +696,7 @@ trait SponsoredProductsRequests
         if (!$type && $this->apiVersion == 'v2') {
             $this->logAndThrow("Unable to perform request. No type is set");
         }
-        return $this->operation("productAds/extended/{$productAdId}");
+        return $this->operation("sp/productAds/extended/{$productAdId}");
     }
 
     /**
@@ -784,6 +784,7 @@ trait SponsoredProductsRequests
     }
 
     /**
+     * 弃用通知：此端点将于 2022 年 12 月 31 日弃用。今后使用基于主题的出价建议。
      * @param $adGroupId
      * @return array
      * @throws Exception
@@ -795,16 +796,18 @@ trait SponsoredProductsRequests
     }
 
     /**
+     * 弃用通知：此端点将于 2022 年 12 月 31 日弃用。今后使用基于主题的出价建议。
      * @param $keywordId
      * @return array
      * @throws Exception
      */
     public function getKeywordBidRecommendations($keywordId)
     {
-        return $this->operation("keywords/{$keywordId}/bidRecommendations");
+        return $this->operation("sp/keywords/{$keywordId}/bidRecommendations");
     }
 
     /**
+     * 弃用通知：此端点将于 2022 年 12 月 31 日弃用。今后使用基于主题的出价建议。
      * @param $adGroupId
      * @param $data
      * @return array
@@ -812,9 +815,21 @@ trait SponsoredProductsRequests
      */
     public function bulkGetKeywordBidRecommendations(array $data)
     {
-        return $this->operation("keywords/bidRecommendations", $data, "POST");
+        return $this->operation("sp/keywords/bidRecommendations", $data, "POST");
     }
 
+    /**
+     * 广告组或ASIN 基于主题的报价推荐
+     * @User Gerry
+     * @Time 2022-8-26 14:58
+     * @param array $data
+     * @return mixed
+     */
+    public function getThemeBasedBidRecommendation(array $data)
+    {
+        $this->setEndpoints('v3');
+        return $this->operation("sp/targets/bid/recommendations", $data, "POST");
+    }
     /**
      * @param $adGroupId
      * @param $data
@@ -835,7 +850,7 @@ trait SponsoredProductsRequests
     {
         $adGroupId = $data["adGroupId"];
         unset($data["adGroupId"]);
-        return $this->operation("adGroups/{$adGroupId}/suggested/keywords", $data);
+        return $this->operation("sp/adGroups/{$adGroupId}/suggested/keywords", $data);
     }
 
     /**
@@ -847,7 +862,7 @@ trait SponsoredProductsRequests
     {
         $adGroupId = $data["adGroupId"];
         unset($data["adGroupId"]);
-        return $this->operation("adGroups/{$adGroupId}/suggested/keywords/extended", $data);
+        return $this->operation("sp/adGroups/{$adGroupId}/suggested/keywords/extended", $data);
     }
 
     /**
@@ -859,7 +874,7 @@ trait SponsoredProductsRequests
     {
         $asin = $data["asin"];
         unset($data["asin"]);
-        return $this->operation("asins/{$asin}/suggested/keywords", $data);
+        return $this->operation("sp/asins/{$asin}/suggested/keywords", $data);
     }
 
     /**
@@ -869,7 +884,7 @@ trait SponsoredProductsRequests
      */
     public function bulkGetAsinKeywordSuggestions(array $data)
     {
-        return $this->operation("asins/suggested/keywords", $data, "POST");
+        return $this->operation("sp/asins/suggested/keywords", $data, "POST");
     }
 
     /**
@@ -889,7 +904,7 @@ trait SponsoredProductsRequests
      * @return array
      * @throws Exception
      */
-    public function getStoresByBrandEntityId(int $brandEntityId)
+    public function getStoresByBrandEntityId($brandEntityId)
     {
         return $this->operation("stores/{$brandEntityId}");
     }
@@ -937,6 +952,9 @@ trait SponsoredProductsRequests
     public function requestReport($recordType, ?array $data = null)
     {
         $type = $this->getCampaignTypeForReportRequest($data);
+        if($type == 'sd'){
+            $this->setEndpoints('v3');
+        }
         if ($this->apiVersion == 'v1') {
             $type = null;
         } else {
