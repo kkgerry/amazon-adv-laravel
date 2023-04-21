@@ -20,8 +20,9 @@ trait SponsoredBrandsRequests
      */
     public function listSponsoredBrandAdGroups($data = null): array
     {
-        $this->setEndpoints('v3');
-        return $this->operation("sb/adGroups", $data);
+        $this->setEndpoints('v4');
+        $data['headers']['accept'] = 'Accept:application/vnd.sbadgroupresource.v4+json';
+        return $this->operation("sb/v4/adGroups/list", $data,'POST');
     }
 
     /**
@@ -35,6 +36,21 @@ trait SponsoredBrandsRequests
     {
         $this->setEndpoints('v3');
         return $this->operation("sb/adGroups/{$adGroupId}");
+    }
+
+    /**
+     * Gets an array of Lists Sponsored Brands ads.
+     * the authorization header, filtered by specified criteria.
+     * @see https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi/prod#/Ads/ListSponsoredBrandsAds
+     * @param null $data
+     * @return array
+     * @throws Exception
+     */
+    public function listSponsoredBrandAds($data = null): array
+    {
+        $this->setEndpoints('v4');
+        $data['headers']['accept'] = 'Accept:application/vnd.sbadresource.v4+json';
+        return $this->operation("sb/v4/ads/list", $data,'POST');
     }
 
     /**
@@ -529,8 +545,9 @@ trait SponsoredBrandsRequests
      */
     public function listSponsoredBrandCampaigns($data = null): array
     {
-        $this->setEndpoints('v3');
-        return $this->operation("sb/campaigns", $data);
+        $this->setEndpoints('v4');
+        $data['headers']['accept'] = 'Accept:application/vnd.sbcampaignresource.v4+json';
+        return $this->operation("sb/v4/campaigns/list", $data,'POST');
     }
 
     /**

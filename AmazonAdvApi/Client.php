@@ -272,9 +272,13 @@ class Client
             $headers['amazon_adv_api_scope'] = "Amazon-Advertising-API-Scope: {$this->profileId}";
             //array_push($headers, "Amazon-Advertising-API-Scope: {$this->profileId}");
         }
-        //print_r(array_values($headers));//die();
+        if(isset($params['headers']['accept']) && !empty($params['headers']['accept'])){
+            $headers['accept'] = $params['headers']['accept'];
+        }
+        unset($params['headers']);
+        //print_r(array_values($headers));
+        //die();
         $this->headers = array_values($headers);
-
 
         $request = new CurlRequest();
         $this->endpoint = trim($this->endpoint, "/");
@@ -506,14 +510,14 @@ class Client
         if (array_key_exists(strtolower($this->config["region"]), $this->endpoints)) {
             $region_code = strtolower($this->config["region"]);
             if ($this->config["sandbox"]) {
-                if($t == 'v3'){
+                if($t == 'v3' || $t == 'v4'){
                     $this->endpoint = "https://{$this->endpoints[$region_code]["sandbox"]}/";
                 }else {
                     $this->endpoint = "https://{$this->endpoints[$region_code]["sandbox"]}/{$this->apiVersion}";
                     $this->commonUrl = "https://{$this->endpoints[$region_code]["sandbox"]}";
                 }
             } else {
-                if($t == 'v3'){
+                if($t == 'v3' || $t == 'v4'){
                     $this->endpoint = "https://{$this->endpoints[$region_code]["prod"]}/";
                 }else {
                     $this->endpoint = "https://{$this->endpoints[$region_code]["prod"]}/{$this->apiVersion}";
