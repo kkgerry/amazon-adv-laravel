@@ -276,9 +276,10 @@ class Client
             $headers['accept'] = $params['headers']['accept'];
         }
         unset($params['headers']);
-        //print_r(array_values($headers));
+        $headers = array_values($headers);
+        //print_r($headers);
         //die();
-        $this->headers = array_values($headers);
+        $this->headers = $headers;
 
         $request = new CurlRequest();
         $this->endpoint = trim($this->endpoint, "/");

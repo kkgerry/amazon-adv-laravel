@@ -153,6 +153,19 @@ trait SponsoredProductsRequests
     }
 
     /**
+     * @param null|array $data
+     * @return array
+     * @throws Exception
+     */
+    public function listSpCampaignsExV3(?array $data = null)
+    {
+        $this->setEndpoints('v3');
+        $data['includeExtendedDataFields'] = true;
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.spCampaign.v3+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.spCampaign.v3+json';
+        return $this->operation( "sp/campaigns/list", $data,'POST');
+    }
+    /**
      * @param $adGroupId
      * @param null|array $data
      * @return array
