@@ -21,6 +21,7 @@ class Client
     use SponsoredProductsRequests;
     use SponsoredBrandsRequests;
     use SponsoredDisplayRequests;
+    use ReportingRequests;
     use ProductEligibilityRequests;
     use ProfileRequests;
     use CommonRequests;
@@ -256,6 +257,7 @@ class Client
      */
     private function operation(string $interface, $params = null, string $method = "GET")
     {
+        //print_r($params);
         $headers = array(
             'authorization' => "Authorization: bearer {$this->config["accessToken"]}",
             'content_type' => "Content-Type: application/json",
@@ -277,6 +279,7 @@ class Client
         }
         unset($params['headers']);
         $headers = array_values($headers);
+
         //print_r($headers);
         //die();
         $this->headers = $headers;
@@ -527,6 +530,9 @@ class Client
             }
 
             $this->tokenUrl = $this->endpoints[$region_code]["tokenUrl"];
+
+            if($this->apiVersion != $t) $this->apiVersion = $t;
+
         } else {
             $this->logAndThrow("Invalid region.");
         }
