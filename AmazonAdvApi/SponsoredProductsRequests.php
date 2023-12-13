@@ -763,37 +763,12 @@ trait SponsoredProductsRequests
      */
     public function listProductAds(?array $data = null)
     {
-        $type = $this->getCampaignTypeFromData($data);
-        if ($this->apiVersion == 'v1') {
-            $type = null;
-        } else {
-            $type = $type . "/";
-        }
+        $this->setEndpoints('v3');
+        $data['includeExtendedDataFields'] = true;
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.spProductAd.v3+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.spProductAd.v3+json';
+        return $this->operation( "sp/productAds/list", $data,'POST');
 
-        if (!$type && $this->apiVersion == 'v2') {
-            $this->logAndThrow("Unable to perform request. No type is set");
-        }
-        return $this->operation("productAds", $data);
-    }
-
-    /**
-     * @param null|array $data
-     * @return array
-     * @throws Exception
-     */
-    public function listProductAdsEx(?array $data = null)
-    {
-        $type = $this->getCampaignTypeFromData($data);
-        if ($this->apiVersion == 'v1') {
-            $type = null;
-        } else {
-            $type = $type . "/";
-        }
-
-        if (!$type && $this->apiVersion == 'v2') {
-            $this->logAndThrow("Unable to perform request. No type is set");
-        }
-        return $this->operation($type . "productAds/extended", $data);
     }
 
     /**

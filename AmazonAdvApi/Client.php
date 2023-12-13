@@ -288,7 +288,7 @@ class Client
         $this->endpoint = trim($this->endpoint, "/");
         $url = "{$this->endpoint}/{$interface}";
         $this->requestId = null;
-        //echo $url; die();
+        //echo $url; //die();
         switch (strtolower($method)) {
             case "get":
                 if (!empty($params)) {
@@ -587,7 +587,7 @@ class Client
                 }
             }
 
-            $path = storage_path('logs') . '/' . $type . '-' . date("Y-m-d") . '.log';
+            $path = storage_path('logs') . '/' . $type . date("Y-m-d") . '.log';
             $content = date('Y-m-d H:i:s') . ' ';
             $content .= $title ?? '';
             $content .= ': ' . json_encode($data,JSON_UNESCAPED_UNICODE) . "\r\n";

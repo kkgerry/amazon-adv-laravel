@@ -41,4 +41,16 @@ trait CommonRequests
         return $this->commonRequest('product/metadata',$data,'POST');
     }
 
+    /**
+     * 获取数据调整记录
+     * @User Gerry
+     * @Time 2023-12-13 15:42
+     * @param array $data
+     * @return mixed
+     */
+    public function getHistoryList(array $data)
+    {
+        return $this->commonRequest('history',$data,'POST');
+    }
+
 }
