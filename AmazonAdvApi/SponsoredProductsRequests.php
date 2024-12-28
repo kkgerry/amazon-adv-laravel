@@ -58,16 +58,20 @@ trait SponsoredProductsRequests
      */
     public function createCampaigns($data=[])
     {
-        $type = $this->campaignTypePrefix ?: 'sp';
-        if ($this->apiVersion == 'v1') {
-            $type = null;
-        } else {
-            $type = $type . "/";
-        }
-        if (!$type && $this->apiVersion == 'v2') {
-            $this->logAndThrow("Unable to perform request. No type is set");
-        }
-        return $this->operation($type . "campaigns", $data, "POST");
+//        $type = $this->campaignTypePrefix ?: 'sp';
+//        if ($this->apiVersion == 'v1') {
+//            $type = null;
+//        } else {
+//            $type = $type . "/";
+//        }
+//        if (!$type && $this->apiVersion == 'v2') {
+//            $this->logAndThrow("Unable to perform request. No type is set");
+//        }
+        $this->setEndpoints('v3');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.spcampaign.v3+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.spCampaign.v3+json';
+
+        return $this->operation( "sp/campaigns", $data, "POST");
     }
 
     /**
@@ -214,6 +218,10 @@ trait SponsoredProductsRequests
      */
     public function createAdGroups($data=[])
     {
+        $this->setEndpoints('v3');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.spAdGroup.v3+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.spAdGroup.v3+json';
+
         return $this->operation( "sp/adGroups", $data, "POST");
     }
 
@@ -331,6 +339,10 @@ trait SponsoredProductsRequests
      */
     public function createBiddableKeywords(array $data)
     {
+        $this->setEndpoints('v3');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.spKeyword.v3+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.spKeyword.v3+json';
+
         return $this->operation( "sp/keywords", $data, "POST");
     }
 
@@ -464,6 +476,10 @@ trait SponsoredProductsRequests
      */
     public function createNegativeKeywords(array $data)
     {
+        $this->setEndpoints('v3');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.spNegativeKeyword.v3+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.spNegativeKeyword.v3+json';
+
         return $this->operation( "sp/negativeKeywords", $data, "POST");
     }
 
@@ -596,6 +612,9 @@ trait SponsoredProductsRequests
      */
     public function createCampaignNegativeKeywords(array $data)
     {
+        $this->setEndpoints('v3');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.spNegativeKeyword.v3+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.spNegativeKeyword.v3+json';
 
         return $this->operation( "sp/campaignNegativeKeywords", $data, "POST");
     }
@@ -719,6 +738,10 @@ trait SponsoredProductsRequests
      */
     public function createProductAds(array $data)
     {
+        $this->setEndpoints('v3');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.spProductAd.v3+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.spProductAd.v3+json';
+
         return $this->operation( "sp/productAds", $data, "POST");
     }
 
@@ -1136,6 +1159,10 @@ trait SponsoredProductsRequests
      */
     public function createTargetingClauses(array $data): array
     {
+        $this->setEndpoints('v3');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.spTargetingClause.v3+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.spTargetingClause.v3+json';
+
         return $this->operation("sp/targets", $data, 'POST');
     }
 
@@ -1182,6 +1209,7 @@ trait SponsoredProductsRequests
     {
         $this->setEndpoints('v3');
         $data['_headers']['content_type'] = 'Content-Type: application/vnd.spproducttargeting.v3+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.spproducttargeting.v3+json';
         return $this->operation("sp/targets/categories/recommendations", $data,'POST');
     }
 
@@ -1262,6 +1290,10 @@ trait SponsoredProductsRequests
      */
     public function createNegativeTargetingClauses(array $data): array
     {
+        $this->setEndpoints('v3');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.spNegativeTargetingClause.v3+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.spNegativeTargetingClause.v3+json';
+
         return $this->operation("sp/negativeTargets", $data, 'POST');
     }
 
@@ -1384,5 +1416,67 @@ trait SponsoredProductsRequests
     public function archiveCampaignNegativeTargetingClause(int $targetId): array
     {
         return $this->operation("sp/campaignNegativeTargets/" . $targetId, 'DELETE');
+    }
+
+
+    /**
+     * POST https://advertising-api.amazon.com/sp/global/targets/keywords/recommendations/list
+     * @see https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Keyword-Targets/operation/getRankedKeywordRecommendation
+     *
+     * @param array $data
+     * @return array
+     * @throws Exception
+     */
+    public function getGlobalKeywordRecommendations(array $data)
+    {
+        return $this->operation("/sp/global/targets/keywords/recommendations/list", $data, "POST");
+    }
+
+    /**
+     * POST https://advertising-api.amazon.com/sp/global/targets/keywords/recommendations/list
+     * @see https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Keyword-Targets/operation/getRankedKeywordRecommendation
+     *
+     * @param array $data
+     * @return array
+     * @throws Exception
+     */
+    public function getKeywordRecommendations(array $data)
+    {
+        $this->setEndpoints('v5');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.spkeywordsrecommendation.v5+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.spkeywordsrecommendation.v5+json';
+
+        return $this->operation("sp/targets/keywords/recommendations", $data, "POST");
+    }
+
+    public function getTargetsBidRecommendations(array $data)
+    {
+        return $this->operation("sp/targets/bidRecommendations", $data, "POST");
+    }
+
+    public function getTargetingRecommendCategoriesV5(array $data): array
+    {
+        $this->setEndpoints('v5');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.spproducttargeting.v5+json';
+        return $this->operation("sp/targets/categories/recommendations", $data,'POST');
+    }
+
+    public function getRecommendTargetAsin(array $data): array
+    {
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.spproductrecommendation.asin.v3+json';
+        return $this->operation("sp/targets/products/recommendations", $data,'POST');
+    }
+
+    public function getTargetProductCount(array $data)
+    {
+        return $this->operation("sp/targets/products/count", $data, "POST");
+    }
+
+    public function getNegativeTargetRecommendationsBrands(array $data)
+    {
+        $this->setEndpoints('v3');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.spproducttargetingresponse.v3+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.spproducttargetingresponse.v3+json';
+        return $this->operation("sp/negativeTargets/brands/recommendations", $data, "GET");
     }
 }

@@ -278,6 +278,7 @@ class Client
             $headers['accept'] = $params['headers']['accept'];
         }
         unset($params['headers']);
+
         $headers = array_values($headers);
 
         //print_r($headers);
@@ -324,9 +325,10 @@ class Client
         }
 
         $request->setOption(CURLOPT_URL, $url);
-        $request->setOption(CURLOPT_HTTPHEADER, $headers);
         $request->setOption(CURLOPT_USERAGENT, $this->userAgent);
         $request->setOption(CURLOPT_CUSTOMREQUEST, strtoupper($method));
+        $request->setOption(CURLOPT_HTTPHEADER, $headers);
+
         $this->logSave('广告API对接',[$url,$params]);
         return $this->executeRequest($request);
     }
@@ -382,9 +384,10 @@ class Client
         }
 
         $request->setOption(CURLOPT_URL, $url);
-        $request->setOption(CURLOPT_HTTPHEADER, $headers);
         $request->setOption(CURLOPT_USERAGENT, $this->userAgent);
         $request->setOption(CURLOPT_CUSTOMREQUEST, strtoupper($method));
+        $request->setOption(CURLOPT_HTTPHEADER, $headers);
+
         $this->logSave('广告公共API对接',[$url,$params]);
         return $this->executeRequest($request);
     }
@@ -396,6 +399,7 @@ class Client
     protected function executeRequest(CurlRequest $request)
     {
         $this->logSave('AmzAdv Request Start');
+        $requestInfo = $request->getInfo();
         $response = $request->execute();
         $this->logSave('AmzAdv Request End');
         $this->requestId = $request->requestId;
@@ -420,6 +424,7 @@ class Client
                 "code" => $response_info["http_code"],
                 "response" => $response,
                 'responseInfo' => $response_info,
+                'requestInfo' => $requestInfo,
                 "requestId" => $requestId
             );
         } else {
@@ -427,6 +432,7 @@ class Client
                 "success" => true,
                 "code" => $response_info["http_code"],
                 'responseInfo' => $response_info,
+                'requestInfo' => $requestInfo,
                 "response" => $response,
                 "requestId" => $this->requestId
             );
@@ -514,14 +520,14 @@ class Client
         if (array_key_exists(strtolower($this->config["region"]), $this->endpoints)) {
             $region_code = strtolower($this->config["region"]);
             if ($this->config["sandbox"]) {
-                if($t == 'v3' || $t == 'v4'){
+                if($t == 'v3' || $t == 'v4' || $t == 'v5'){
                     $this->endpoint = "https://{$this->endpoints[$region_code]["sandbox"]}/";
                 }else {
                     $this->endpoint = "https://{$this->endpoints[$region_code]["sandbox"]}/{$this->apiVersion}";
                     $this->commonUrl = "https://{$this->endpoints[$region_code]["sandbox"]}";
                 }
             } else {
-                if($t == 'v3' || $t == 'v4'){
+                if($t == 'v3' || $t == 'v4' || $t == 'v5'){
                     $this->endpoint = "https://{$this->endpoints[$region_code]["prod"]}/";
                 }else {
                     $this->endpoint = "https://{$this->endpoints[$region_code]["prod"]}/{$this->apiVersion}";

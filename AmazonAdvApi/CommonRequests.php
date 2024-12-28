@@ -42,15 +42,31 @@ trait CommonRequests
     }
 
     /**
-     * 获取数据调整记录
+     * 受众细分列表
      * @User Gerry
-     * @Time 2023-12-13 15:42
+     * @Time 2021-11-30 18:14
      * @param array $data
      * @return mixed
      */
-    public function getHistoryList(array $data)
+    public function getAudiencesList(array $data=[])
+    {
+        return $this->commonRequest('audiences/list',$data,'POST');
+    }
+    public function getHistory(array $data)
     {
         return $this->commonRequest('history',$data,'POST');
+    }
+
+    /**
+     * 创建上传资源
+     * @User Luc
+     * @Time 2024-10-18 16:14
+     * @param array $data
+     * @return mixed
+     */
+    public function getAssetsUploadLocation(array $data=[])
+    {
+        return $this->commonRequest('assets/upload',$data,'POST');
     }
 
 }

@@ -10,6 +10,37 @@ use Exception;
  */
 trait SponsoredBrandsRequests
 {
+
+    /**
+     * Gets an ad group specified by identifier.
+     * @see https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#/Campaigns/getAdGroups
+     * @param int $adGroupId
+     * @return array
+     * @throws Exception
+     */
+    public function createSponsoredBrandAdGroup($adGroupId): array
+    {
+        $this->setEndpoints('v4');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.sbadgroupresource.v4+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.sbadgroupresource.v4+json';
+        return $this->operation("sb/v4/adGroups", $data,'POST');
+    }
+
+    /**
+     * Gets an ad group specified by identifier.
+     * @see https://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#/Campaigns/getAdGroups
+     * @param int $adGroupId
+     * @return array
+     * @throws Exception
+     */
+    public function updateSponsoredBrandAdGroup($adGroupId): array
+    {
+        $this->setEndpoints('v4');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.sbadgroupresource.v4+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.sbadgroupresource.v4+json';
+        return $this->operation("sb/v4/adGroups", $data,'PUT');
+    }
+
     /**
      * Gets an array of ad groups associated with the client identifier passed in
      * the authorization header, filtered by specified criteria.
@@ -24,6 +55,7 @@ trait SponsoredBrandsRequests
         $data['headers']['accept'] = 'Accept:application/vnd.sbadgroupresource.v4+json';
         return $this->operation("sb/v4/adGroups/list", $data,'POST');
     }
+
 
     /**
      * Gets an ad group specified by identifier.
@@ -558,8 +590,10 @@ trait SponsoredBrandsRequests
      */
     public function createSponsoredBrandCampaigns(array $data): array
     {
-        $this->setEndpoints('v3');
-        return $this->operation("sb/campaigns", $data, 'POST');
+        $this->setEndpoints('v4');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.sbcampaignresource.v4+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.sbcampaignresource.v4+json';
+        return $this->operation("sb/v4/campaigns", $data, 'POST');
     }
 
     /**
@@ -610,6 +644,68 @@ trait SponsoredBrandsRequests
     {
         $this->setEndpoints('v3');
         return $this->operation("media/upload", $data, 'POST');
+    }
+
+    /**
+     * @seehttps://advertising.amazon.com/API/docs/en-us/sponsored-brands/3-0/openapi#tag/Keyword-Recommendations/operation/getKeywordRecommendations
+     * @param array $data
+     * @return array
+     * @throws Exception
+     */
+    public function getSbKeywordRecommendations(array $data): array
+    {
+        $this->setEndpoints('v3');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.sbkeywordrecommendation.v3+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.sbkeywordrecommendation.v3+json';
+        return $this->operation("sb/recommendations/keyword", $data, 'POST');
+    }
+
+    public function createSbAdsVideo(array $data): array
+    {
+        $this->setEndpoints('v3');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.sbadresource.v4+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.sbadresource.v4+json';
+        return $this->operation("sb/v4/ads/video", $data, 'POST');
+    }
+
+    public function createSbAdsBrandVideo(array $data): array
+    {
+        $this->setEndpoints('v4');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.sbadresource.v4+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.sbadresource.v4+json';
+        return $this->operation("sb/v4/ads/brandVideo", $data, 'POST');
+    }
+
+    public function createSbAdsProductCollection(array $data): array
+    {
+        $this->setEndpoints('v4');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.sbadresource.v4+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.sbadresource.v4+json';
+        return $this->operation("sb/v4/ads/productCollection", $data, 'POST');
+    }
+
+    public function createSbAdsProductCollectionExtended(array $data): array
+    {
+        $this->setEndpoints('v4');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.sbadresource.v4+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.sbadresource.v4+json';
+        return $this->operation("sb/v4/ads/productCollectionExtended", $data, 'POST');
+    }
+
+    public function createSbAdsStoreSpotlight(array $data): array
+    {
+        $this->setEndpoints('v4');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.sbadresource.v4+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.sbadresource.v4+json';
+        return $this->operation("sb/v4/ads/storeSpotlight", $data, 'POST');
+    }
+
+    public function updateSbAds(array $data): array
+    {
+        $this->setEndpoints('v4');
+        $data['_headers']['content_type'] = 'Content-Type: application/vnd.sbadresource.v4+json';
+        $data['_headers']['accept'] = 'Accept: application/vnd.sbadresource.v4+json';
+        return $this->operation("sb/v4/ads", $data, 'PUT');
     }
 
 }
